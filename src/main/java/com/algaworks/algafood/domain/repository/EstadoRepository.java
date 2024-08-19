@@ -9,7 +9,7 @@ public interface EstadoRepository {
 	Estado salvar(Estado estado);
 	List<Estado> listar();
 	Estado buscar(Long id);
-	void remover(Estado estado);
+	void remover(Long id);
 	
 
 }
