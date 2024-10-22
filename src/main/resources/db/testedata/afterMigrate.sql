@@ -1,17 +1,92 @@
+set foreign_key_checks = 0;
+
+delete from cidade;
+delete from cozinha;
+delete from estado;
+delete from forma_pagamento;
+delete from grupo;
+delete from grupo_permissao;
+delete from permissao;
+delete from produto;
+delete from restaurante;
+delete from restaurante_forma_pagamento;
+delete from usuario;
+delete from usuario_grupo;
+
+set foreign_key_checks = 1;
+
+
+alter table cidade auto_increment = 1;
+alter table cozinha auto_increment = 1;
+alter table estado auto_increment = 1;
+alter table forma_pagamento auto_increment = 1;
+alter table grupo auto_increment = 1;
+alter table grupo_permissao auto_increment = 1;
+alter table permissao auto_increment = 1;
+alter table produto auto_increment = 1;
+alter table restaurante auto_increment = 1;
+alter table restaurante_forma_pagamento auto_increment = 1;
+alter table usuario auto_increment = 1;
+alter table usuario_grupo auto_increment = 1;
+
 insert into cozinha (id, nome) values (1, 'Tailandesa');
 insert into cozinha (id, nome) values (2, 'Indiana');
 insert into cozinha (id, nome) values (3, 'Argentina');
 insert into cozinha (id, nome) values (4, 'Brasileira');
+insert into cozinha (id, nome) values (5, 'Mexicana');
+insert into cozinha (id, nome) values (6, 'Italiana');
+insert into cozinha (id, nome) values (7, 'Chinesa');
+insert into cozinha (id, nome) values (8, 'Japonesa');
+insert into cozinha (id, nome) values (9, 'Francesa');
+insert into cozinha (id, nome) values (10, 'Espanhola');
+insert into cozinha (id, nome) values (11, 'Portuguesa');
+insert into cozinha (id, nome) values (12, 'Coreana');
+insert into cozinha (id, nome) values (13, 'Libanesa');
+insert into cozinha (id, nome) values (14, 'Peruana');
 
 insert into estado (id, nome) values (1, 'Minas Gerais');
 insert into estado (id, nome) values (2, 'São Paulo');
 insert into estado (id, nome) values (3, 'Ceará');
+insert into estado (id, nome) values (4, 'Acre');
+insert into estado (id, nome) values (5, 'Alagoas');
+insert into estado (id, nome) values (6, 'Amapá');
+insert into estado (id, nome) values (7, 'Amazonas');
+insert into estado (id, nome) values (8, 'Bahia');
+insert into estado (id, nome) values (9, 'Distrito Federal');
+insert into estado (id, nome) values (10, 'Espírito Santo');
+insert into estado (id, nome) values (11, 'Goiás');
+insert into estado (id, nome) values (12, 'Maranhão');
+insert into estado (id, nome) values (13, 'Mato Grosso');
+insert into estado (id, nome) values (14, 'Mato Grosso do Sul');
+insert into estado (id, nome) values (15, 'Pará');
+insert into estado (id, nome) values (16, 'Paraíba');
+insert into estado (id, nome) values (17, 'Paraná');
+insert into estado (id, nome) values (18, 'Pernambuco');
+insert into estado (id, nome) values (19, 'Piauí');
+insert into estado (id, nome) values (20, 'Rio de Janeiro');
+insert into estado (id, nome) values (21, 'Rio Grande do Norte');
+insert into estado (id, nome) values (22, 'Rio Grande do Sul');
+insert into estado (id, nome) values (23, 'Rondônia');
+insert into estado (id, nome) values (24, 'Roraima');
+insert into estado (id, nome) values (25, 'Santa Catarina');
+insert into estado (id, nome) values (26, 'Sergipe');
+insert into estado (id, nome) values (27, 'Tocantins');
 
 insert into cidade (id, nome, estado_id) values (1, 'Uberlândia', 1);
 insert into cidade (id, nome, estado_id) values (2, 'Belo Horizonte', 1);
 insert into cidade (id, nome, estado_id) values (3, 'São Paulo', 2);
 insert into cidade (id, nome, estado_id) values (4, 'Campinas', 2);
 insert into cidade (id, nome, estado_id) values (5, 'Fortaleza', 3);
+insert into cidade (id, nome, estado_id) values (6, 'Juiz de Fora', 1);
+insert into cidade (id, nome, estado_id) values (7, 'Ribeirão Preto', 2);
+insert into cidade (id, nome, estado_id) values (8, 'Sorocaba', 2);
+insert into cidade (id, nome, estado_id) values (9, 'Caucaia', 3);
+insert into cidade (id, nome, estado_id) values (10, 'Crato', 3);
+insert into cidade (id, nome, estado_id) values (11, 'Salvador', 8);
+insert into cidade (id, nome, estado_id) values (12, 'Feira de Santana', 8);
+insert into cidade (id, nome, estado_id) values (13, 'Curitiba', 17);
+insert into cidade (id, nome, estado_id) values (14, 'Londrina', 17);
+insert into cidade (id, nome, estado_id) values (15, 'Recife', 18);
 
 insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, endereco_cidade_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro) values (1, 'Thai Gourmet', 10, 1, utc_timestamp, utc_timestamp, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
 insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao) values (2, 'Thai Delivery', 9.50, 1, utc_timestamp, utc_timestamp);
@@ -31,15 +106,10 @@ insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) val
 
 insert into produto (nome, descricao, preco, ativo, restaurante_id) values ('Porco com molho agridoce', 'Deliciosa carne suína ao molho especial', 78.90, 1, 1);
 insert into produto (nome, descricao, preco, ativo, restaurante_id) values ('Camarão tailandês', '16 camarões grandes ao molho picante', 110, 1, 1);
-
 insert into produto (nome, descricao, preco, ativo, restaurante_id) values ('Salada picante com carne grelhada', 'Salada de folhas com cortes finos de carne bovina grelhada e nosso molho especial de pimenta vermelha', 87.20, 1, 2);
-
 insert into produto (nome, descricao, preco, ativo, restaurante_id) values ('Garlic Naan', 'Pão tradicional indiano com cobertura de alho', 21, 1, 3);
 insert into produto (nome, descricao, preco, ativo, restaurante_id) values ('Murg Curry', 'Cubos de frango preparados com molho curry e especiarias', 43, 1, 3);
-
 insert into produto (nome, descricao, preco, ativo, restaurante_id) values ('Bife Ancho', 'Corte macio e suculento, com dois dedos de espessura, retirado da parte dianteira do contrafilé', 79, 1, 4);
 insert into produto (nome, descricao, preco, ativo, restaurante_id) values ('T-Bone', 'Corte muito saboroso, com um osso em formato de T, sendo de um lado o contrafilé e do outro o filé mignon', 89, 1, 4);
-
 insert into produto (nome, descricao, preco, ativo, restaurante_id) values ('Sanduíche X-Tudo', 'Sandubão com muito queijo, hamburger bovino, bacon, ovo, salada e maionese', 19, 1, 5);
-
 insert into produto (nome, descricao, preco, ativo, restaurante_id) values ('Espetinho de Cupim', 'Acompanha farinha, mandioca e vinagrete', 8, 1, 6);
