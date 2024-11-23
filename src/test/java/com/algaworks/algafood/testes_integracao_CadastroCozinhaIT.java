@@ -15,7 +15,7 @@ import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.service.CadastroCozinhaService;
 
 @SpringBootTest
-class CadastroCozinhaIntegrationTests {
+class testes_integracao_CadastroCozinhaIT {
 
   @Autowired
   private CadastroCozinhaService cadastroCozinha;
