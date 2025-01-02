@@ -16,17 +16,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
-import javax.validation.groups.ConvertGroup;
-import javax.validation.groups.Default;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import com.algaworks.algafood.core.validation.Groups;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -73,6 +65,6 @@ public class Restaurante {
 	private List<FormaPagamento> formasPagamento = new ArrayList<>();
 
 	@OneToMany(mappedBy = "restaurante")
-	private List<Produto> produtos = new ArrayList<>(); 
+	private List<Produto> produtos = new ArrayList<>();
 
 }
