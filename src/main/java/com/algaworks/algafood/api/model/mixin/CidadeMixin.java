@@ -7,5 +7,5 @@ public abstract class CidadeMixin {
 
   @JsonIgnoreProperties(value = "nome", allowGetters = true)
   private Estado estado;
-  
-}    
+
+}
