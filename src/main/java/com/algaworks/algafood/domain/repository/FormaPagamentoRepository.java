@@ -1,15 +1,11 @@
 package com.algaworks.algafood.domain.repository;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import com.algaworks.algafood.domain.model.FormaPagamento;
 
-public interface FormaPagamentoRepository {
-	
-	FormaPagamento salvar(FormaPagamento formaPgamento);
-	List<FormaPagamento> listar();
-	FormaPagamento buscar(Long id);
-	void remover(FormaPagamento formaPgamento);
-	
+public interface FormaPagamentoRepository
+		extends JpaRepository<FormaPagamento, Long>, JpaSpecificationExecutor<FormaPagamento> {
 
 }
