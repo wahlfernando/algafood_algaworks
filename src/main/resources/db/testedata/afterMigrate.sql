@@ -421,6 +421,7 @@ values (
     );
 insert into pedido (
         id,
+        codigo,
         restaurante_id,
         usuario_cliente_id,
         forma_pagamento_id,
@@ -438,6 +439,7 @@ insert into pedido (
     )
 values (
         1,
+        '550e8400-e29b-41d4-a716-446655440000',
         1,
         1,
         1,
@@ -475,6 +477,7 @@ insert into item_pedido (
 values (2, 1, 2, 2, 110, 220, 'Menos picante, por favor');
 insert into pedido (
         id,
+        codigo,
         restaurante_id,
         usuario_cliente_id,
         forma_pagamento_id,
@@ -492,6 +495,7 @@ insert into pedido (
     )
 values (
         2,
+        '123e4567-e89b-12d3-a456-556642440000',
         4,
         1,
         2,
@@ -517,3 +521,5 @@ insert into item_pedido (
         observacao
     )
 values (3, 2, 6, 1, 79, 79, 'Ao ponto');
+alter table pedido auto_increment = 1;
+alter table item_pedido auto_increment = 1;

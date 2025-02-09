@@ -108,8 +108,7 @@ public class Restaurante {
 	}
 
 	public boolean naoaceitaFormaPagamento(FormaPagamento formaPagamento) {
-		return getFormasPagamento().contains(formaPagamento);
-
+		return !aceitaFormaPagamento(formaPagamento);
 	}
 
 }
