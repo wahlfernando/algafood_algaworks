@@ -32,13 +32,13 @@ public class CadastroCozinhaService {
 		} catch (EmptyResultDataAccessException e) {
 			throw new CozinhaNaoEncontradoException(cozinhaID);
 		} catch (DataIntegrityViolationException e) {
-			throw new EntidadeEmUsoException(String.format(MSG_COZINHA_EM_USO, cozinhaID));
+			throw new EntidadeEmUsoException(MSG_COZINHA_EM_USO.formatted(cozinhaID));
 		}
 	}
 
 	public Cozinha buscarOuFalhar(Long cozinhaId) {
 		return cozinhaRepository.findById(cozinhaId).orElseThrow(
-				() -> new CozinhaNaoEncontradoException(String.format(MSG_COZINHA_NAO_ENCONTRADA, cozinhaId)));
+				() -> new CozinhaNaoEncontradoException(MSG_COZINHA_NAO_ENCONTRADA.formatted(cozinhaId)));
 	}
 
 }

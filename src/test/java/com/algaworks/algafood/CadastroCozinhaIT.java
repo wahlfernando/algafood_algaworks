@@ -39,10 +39,10 @@ class CadastroCozinhaIT {
 	private Long idCozinhaExistente;
 	private int qtdeCozinhacadastradas;
 	private String jsonCorretoCozinhaChinesa;
-	
 
-	@BeforeEach
-	public void setUp() {
+
+    @BeforeEach
+    void setUp() {
 		RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 		RestAssured.port = port;
 		RestAssured.basePath = "/cozinhas";
@@ -71,9 +71,9 @@ class CadastroCozinhaIT {
 		qtdeCozinhacadastradas = (int) cozinhaRepository.count();
 		
 	}
-	
-	@Test
-	public void deveRetornarRespostaEStatusCorretos_quandoConsultarCozinahExistente() {
+
+    @Test
+    void deveRetornarRespostaEStatusCorretos_quandoConsultarCozinahExistente() {
 		given()
 			.pathParam("cozinhaId", idCozinhaExistente)
 			.accept(ContentType.JSON)
@@ -83,9 +83,9 @@ class CadastroCozinhaIT {
 			.statusCode(HttpStatus.SC_OK)
 			.body("nome", equalTo(nomeCozinhaExistente));
 	}
-	
-	@Test
-	public void deveRetornarRespostaEStatus404_quandoConsultarCozinahInexistente() {
+
+    @Test
+    void deveRetornarRespostaEStatus404_quandoConsultarCozinahInexistente() {
 		given()
 			.pathParam("cozinhaId", _COZINHA_ID_INEXISTENTE)
 			.accept(ContentType.JSON)
@@ -94,10 +94,10 @@ class CadastroCozinhaIT {
 		.then()
 			.statusCode(HttpStatus.SC_NOT_FOUND);
 	}
-	
 
-	@Test
-	public void deveRetornarStatus200_quandoConsultarCozinha() {
+
+    @Test
+    void deveRetornarStatus200_quandoConsultarCozinha() {
 		given()
 			.accept(ContentType.JSON)
 		.when()
@@ -106,9 +106,9 @@ class CadastroCozinhaIT {
 			.statusCode(HttpStatus.SC_OK);
 	}
 
-	
-	@Test
-	public void deveRetornarNumerodeQuantidadesReferentesDeCozinhas_QuandoConsultaCozinhas() {
+
+    @Test
+    void deveRetornarNumerodeQuantidadesReferentesDeCozinhas_QuandoConsultaCozinhas() {
 		given()
 			.accept(ContentType.JSON)
 		.when()
@@ -116,9 +116,9 @@ class CadastroCozinhaIT {
 		.then()
 			.body("", Matchers.hasSize(qtdeCozinhacadastradas));
 	}
-	
-	@Test
-	public void deveRetornarStatus201_quandoCadastrarCozinha() {
+
+    @Test
+    void deveRetornarStatus201_quandoCadastrarCozinha() {
 		given()
 			.body(jsonCorretoCozinhaChinesa)
 			.contentType(ContentType.JSON)

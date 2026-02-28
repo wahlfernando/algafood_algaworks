@@ -2,33 +2,33 @@ package com.algaworks.algafood.core.validation;
 
 import java.math.BigDecimal;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 public class MultiploValidator implements ConstraintValidator<Multiplo, Number> {
 
-	private int numeroMultiplo;
+    private int numeroMultiplo;
 
-	@Override
-	public void initialize(Multiplo constraintAnnotation) {
-		this.numeroMultiplo = constraintAnnotation.numero();
-	}
+    @Override
+    public void initialize(Multiplo constraintAnnotation) {
+        this.numeroMultiplo = constraintAnnotation.numero();
+    }
 
-	@Override
-	public boolean isValid(Number value, ConstraintValidatorContext context) {
-		@SuppressWarnings("unused")
-		boolean valido = true;
+    @Override
+    public boolean isValid(Number value, ConstraintValidatorContext context) {
+        @SuppressWarnings("unused")
+        boolean valido = true;
 
-		if (value != null) {
-			var valorDecimal = BigDecimal.valueOf(value.doubleValue());
-			var multiploDecimal = BigDecimal.valueOf(this.numeroMultiplo);
-			var resto = valorDecimal.remainder(multiploDecimal);
+        if (value != null) {
+            var valorDecimal = BigDecimal.valueOf(value.doubleValue());
+            var multiploDecimal = BigDecimal.valueOf(this.numeroMultiplo);
+            var resto = valorDecimal.remainder(multiploDecimal);
 
-			valido = BigDecimal.ZERO.compareTo(resto) == 0;
+            valido = BigDecimal.ZERO.compareTo(resto) == 0;
 
-		}
+        }
 
-		return false;
-	}
+        return false;
+    }
 
 }

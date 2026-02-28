@@ -1,8 +1,8 @@
 package com.algaworks.algafood.api.model.input;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,22 +11,22 @@ import lombok.Setter;
 @Getter
 public class EnderecoInput {
 
-  @NotBlank
-  private String cep;
+    @NotBlank
+    private String cep;
 
-  @NotBlank
-  private String logradouro;
+    @NotBlank
+    private String logradouro;
 
-  @NotBlank
-  private String numero;
+    @NotBlank
+    private String numero;
 
-  private String complemento;
+    private String complemento;
 
-  @NotBlank
-  private String bairro;
+    @NotBlank
+    private String bairro;
 
-  @Valid
-  @NotNull
-  private CidadeIdInput cidade;
+    @Valid
+    @NotNull
+    private CidadeIdInput cidade;
 
 }

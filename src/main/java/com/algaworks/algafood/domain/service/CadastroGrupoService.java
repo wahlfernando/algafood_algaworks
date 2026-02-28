@@ -35,15 +35,15 @@ public class CadastroGrupoService {
 			grupoRepository.deleteById(grupoID);
 			grupoRepository.flush();
 		} catch (EmptyResultDataAccessException e) {
-			throw new GrupoNaoEncontradoException(String.format(MSG_GRUPO_NAO_ENCONTRADA, grupoID));
+			throw new GrupoNaoEncontradoException(MSG_GRUPO_NAO_ENCONTRADA.formatted(grupoID));
 		} catch (DataIntegrityViolationException e) {
-			throw new EntidadeEmUsoException(String.format(MSG_GRUPO_NAO_PODE_SER_REMOVIDA, grupoID));
+			throw new EntidadeEmUsoException(MSG_GRUPO_NAO_PODE_SER_REMOVIDA.formatted(grupoID));
 		}
 	}
 
 	public Grupo buscarOuFalhar(Long grupoId) {
 		return grupoRepository.findById(grupoId).orElseThrow(
-				() -> new GrupoNaoEncontradoException(String.format(MSG_GRUPO_NAO_ENCONTRADA, grupoId)));
+				() -> new GrupoNaoEncontradoException(MSG_GRUPO_NAO_ENCONTRADA.formatted(grupoId)));
 	}
 
 	@Transactional

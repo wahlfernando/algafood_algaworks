@@ -38,15 +38,15 @@ public class CadastroCidadeService {
 			cidadeRepository.deleteById(cidadeID);
 			cidadeRepository.flush();
 		} catch (EmptyResultDataAccessException e) {
-			throw new CidadeNaoEncontradoException(String.format(MSG_CIDADE_NAO_ENCONTRADA, cidadeID));
+			throw new CidadeNaoEncontradoException(MSG_CIDADE_NAO_ENCONTRADA.formatted(cidadeID));
 		} catch (DataIntegrityViolationException e) {
-			throw new EntidadeEmUsoException(String.format(MSG_CIDADE_NAO_PODE_SER_REMOVIDA, cidadeID));
+			throw new EntidadeEmUsoException(MSG_CIDADE_NAO_PODE_SER_REMOVIDA.formatted(cidadeID));
 		}
 	}
 
 	public Cidade buscarOuFalhar(Long cidadeId) {
 		return cidadeRepository.findById(cidadeId).orElseThrow(
-				() -> new CidadeNaoEncontradoException(String.format(MSG_CIDADE_NAO_ENCONTRADA, cidadeId)));
+				() -> new CidadeNaoEncontradoException(MSG_CIDADE_NAO_ENCONTRADA.formatted(cidadeId)));
 	}
 
 }

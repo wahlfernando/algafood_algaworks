@@ -1,6 +1,6 @@
 package com.algaworks.algafood.api.model.input;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class FormaPagamentoInput {
 
-  @NotBlank
-  private String descricao;
+    @NotBlank
+    private String descricao;
 
 }

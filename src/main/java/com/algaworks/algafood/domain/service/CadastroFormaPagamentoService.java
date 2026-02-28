@@ -38,7 +38,7 @@ public class CadastroFormaPagamentoService {
 			throw new FormaPagamentoNaoEncontradoException(formaPagamentoId);
 		} catch (DataIntegrityViolationException e) {
 			throw new EntidadeEmUsoException(
-					String.format(FORMAPGTO_DE_CÓDIGO_D_NÃO_PODE_SER_REMOVIDA_POIS_ESTA_EM_USO, formaPagamentoId));
+                    FORMAPGTO_DE_CÓDIGO_D_NÃO_PODE_SER_REMOVIDA_POIS_ESTA_EM_USO.formatted(formaPagamentoId));
 		}
 	}
 }

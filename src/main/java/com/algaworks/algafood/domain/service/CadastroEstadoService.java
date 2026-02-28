@@ -33,7 +33,7 @@ public class CadastroEstadoService {
 			throw new EstadoNaoEncontradoException(estadoID);
 		} catch (DataIntegrityViolationException e) {
 			throw new EntidadeEmUsoException(
-					String.format(ESTADO_DE_CÓDIGO_D_NÃO_PODE_SER_REMOVIDA_POIS_ESTA_EM_USO, estadoID));
+                    ESTADO_DE_CÓDIGO_D_NÃO_PODE_SER_REMOVIDA_POIS_ESTA_EM_USO.formatted(estadoID));
 		}
 	}
 

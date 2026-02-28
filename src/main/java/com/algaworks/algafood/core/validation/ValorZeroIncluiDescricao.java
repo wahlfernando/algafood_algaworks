@@ -6,22 +6,24 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import javax.validation.Constraint;
-import javax.validation.Payload;
+import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
 
-@Target({ ElementType.TYPE})
+@Target({ElementType.TYPE})
 @Retention(RUNTIME)
-@Constraint(validatedBy = { ValorZeroIncluiDescicaoValidator.class})
+@Constraint(validatedBy = {ValorZeroIncluiDescicaoValidator.class})
 public @interface ValorZeroIncluiDescricao {
-	
-	String message() default "Descrição obrigatória invalida!";
 
-	Class<?>[] groups() default { };
+    String message() default "Descrição obrigatória invalida!";
 
-	Class<? extends Payload>[] payload() default { };
-	String valorField();
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
+
+    String valorField();
+
     String descricaoField();
+
     String descricaoObrigatoria();
-	
-	
+
 }

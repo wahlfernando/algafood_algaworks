@@ -11,24 +11,24 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import javax.validation.Constraint;
-import javax.validation.OverridesAttribute;
-import javax.validation.Payload;
-import javax.validation.constraints.PositiveOrZero;
+import jakarta.validation.Constraint;
+import jakarta.validation.OverridesAttribute;
+import jakarta.validation.Payload;
+import jakarta.validation.constraints.PositiveOrZero;
 
-@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
+@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RUNTIME)
 @Constraint(validatedBy = {})
 @PositiveOrZero
 public @interface TaxaFrete {
-	
-	@OverridesAttribute(constraint = PositiveOrZero.class, name = "message")
-	String message() default "{TaxaFrete.invalida}";
 
-	Class<?>[] groups() default { };
+    @OverridesAttribute(constraint = PositiveOrZero.class, name = "message")
+    String message() default "{TaxaFrete.invalida}";
 
-	Class<? extends Payload>[] payload() default { };
-	
-	int numero();
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
+
+    int numero();
 
 }

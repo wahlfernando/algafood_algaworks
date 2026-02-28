@@ -51,7 +51,7 @@ public class CadastroRestauranteService {
 	public Restaurante buscarOuFalhar(Long restauranteId) {
 		return restauranteRepository.findById(restauranteId)
 				.orElseThrow(() -> new RestauranteNaoEncontradoException(
-						String.format(MSG_RESTAURANTE_NAO_ENCONTRADO, restauranteId)));
+                MSG_RESTAURANTE_NAO_ENCONTRADO.formatted(restauranteId)));
 	}
 
 	@Transactional

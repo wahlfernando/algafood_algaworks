@@ -2,7 +2,7 @@ package com.algaworks.algafood.api.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,55 +29,55 @@ import com.algaworks.algafood.domain.service.CadastroUsuarioService;
 @RequestMapping(value = "/usuarios")
 public class UsuarioController {
 
-	@Autowired
-	private CadastroUsuarioService cadastroUsuario;
+    @Autowired
+    private CadastroUsuarioService cadastroUsuario;
 
-	@Autowired
-	private UsuarioRepository usuarioRepository;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
-	@Autowired
-	private UsuarioModelAssembler usuarioModelAssembler;
+    @Autowired
+    private UsuarioModelAssembler usuarioModelAssembler;
 
-	@Autowired
-	private UsuarioInputDisassembler usuarioInputDisassembler;
+    @Autowired
+    private UsuarioInputDisassembler usuarioInputDisassembler;
 
-	@GetMapping()
-	public List<UsuarioModel> listar() {
-		return usuarioModelAssembler.toCollectionModel(usuarioRepository.findAll());
-	}
+    @GetMapping()
+    public List<UsuarioModel> listar() {
+        return usuarioModelAssembler.toCollectionModel(usuarioRepository.findAll());
+    }
 
-	@GetMapping("/{usuarioId}")
-	public UsuarioModel buscar(@PathVariable Long usuarioId) {
-		Usuario Usuario = cadastroUsuario.buscarOuFalhar(usuarioId);
+    @GetMapping("/{usuarioId}")
+    public UsuarioModel buscar(@PathVariable Long usuarioId) {
+        Usuario Usuario = cadastroUsuario.buscarOuFalhar(usuarioId);
 
-		return usuarioModelAssembler.toModel(Usuario);
-	}
+        return usuarioModelAssembler.toModel(Usuario);
+    }
 
-	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public UsuarioModel adicionar(@RequestBody @Valid UsuarioSenhaInput usuarioInput) {
-		Usuario usuario = usuarioInputDisassembler.toDomainObject(usuarioInput);
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public UsuarioModel adicionar(@RequestBody @Valid UsuarioSenhaInput usuarioInput) {
+        Usuario usuario = usuarioInputDisassembler.toDomainObject(usuarioInput);
 
-		usuario = cadastroUsuario.salvar(usuario);
+        usuario = cadastroUsuario.salvar(usuario);
 
-		return usuarioModelAssembler.toModel(usuario);
-	}
+        return usuarioModelAssembler.toModel(usuario);
+    }
 
-	@PutMapping("/{usuarioId}")
-	public UsuarioModel atualizar(@PathVariable Long usuarioId, @RequestBody @Valid UsuarioInput usuarioInput) {
+    @PutMapping("/{usuarioId}")
+    public UsuarioModel atualizar(@PathVariable Long usuarioId, @RequestBody @Valid UsuarioInput usuarioInput) {
 
-		Usuario usuarioAtual = cadastroUsuario.buscarOuFalhar(usuarioId);
-		usuarioInputDisassembler.copyToDomainObject(usuarioInput, usuarioAtual);
-		usuarioAtual = cadastroUsuario.salvar(usuarioAtual);
+        Usuario usuarioAtual = cadastroUsuario.buscarOuFalhar(usuarioId);
+        usuarioInputDisassembler.copyToDomainObject(usuarioInput, usuarioAtual);
+        usuarioAtual = cadastroUsuario.salvar(usuarioAtual);
 
-		return usuarioModelAssembler.toModel(usuarioAtual);
+        return usuarioModelAssembler.toModel(usuarioAtual);
 
-	}
+    }
 
-	@PutMapping("/{usuarioId}/senha")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void alterarSenha(@PathVariable Long usuarioId, @RequestBody @Valid SenhaInput senha) {
-		cadastroUsuario.alterarSenha(usuarioId, senha.getSenhaAtual(), senha.getNovaSenha());
-	}
+    @PutMapping("/{usuarioId}/senha")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void alterarSenha(@PathVariable Long usuarioId, @RequestBody @Valid SenhaInput senha) {
+        cadastroUsuario.alterarSenha(usuarioId, senha.getSenhaAtual(), senha.getNovaSenha());
+    }
 
 }

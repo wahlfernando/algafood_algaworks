@@ -2,9 +2,12 @@ package com.algaworks.algafood.api.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,60 +33,63 @@ import com.algaworks.algafood.domain.service.CadastroCozinhaService;
 @RequestMapping(value = "/cozinhas")
 public class CozinhaController {
 
-	@Autowired
-	private CadastroCozinhaService cadastroCozinha;
+    @Autowired
+    private CadastroCozinhaService cadastroCozinha;
 
-	@Autowired
-	private CozinhaRepository cozinhaRepository;
+    @Autowired
+    private CozinhaRepository cozinhaRepository;
 
-	@Autowired
-	private CozinhaModelAssembler cozinhaModelAssembler;
+    @Autowired
+    private CozinhaModelAssembler cozinhaModelAssembler;
 
-	@Autowired
-	private CozinhaModelDisAssembler cozinhaModelDisAssembler;
+    @Autowired
+    private CozinhaModelDisAssembler cozinhaModelDisAssembler;
 
-	@GetMapping()
-	public List<CozinhaModel> listar() {
-		return cozinhaModelAssembler.toCollectionModel(cozinhaRepository.findAll());
-	}
+    @GetMapping()
+    public Page<CozinhaModel> listar(Pageable pageable) {
+        Page<Cozinha> cozinhasPage = cozinhaRepository.findAll(pageable);
+        List<CozinhaModel> cozinhasModel = cozinhaModelAssembler.toCollectionModel(cozinhasPage.getContent());
+        Page<CozinhaModel> cozinhasModelPage = new PageImpl<>(cozinhasModel, pageable, cozinhasPage.getTotalElements());
+        return cozinhasModelPage;
+    }
 
-	@GetMapping("/{cozinhaId}")
-	public CozinhaModel buscar(@PathVariable Long cozinhaId) {
-		Cozinha cozinha = cadastroCozinha.buscarOuFalhar(cozinhaId);
+    @GetMapping("/{cozinhaId}")
+    public CozinhaModel buscar(@PathVariable Long cozinhaId) {
+        Cozinha cozinha = cadastroCozinha.buscarOuFalhar(cozinhaId);
 
-		return cozinhaModelAssembler.toModel(cozinha);
-	}
+        return cozinhaModelAssembler.toModel(cozinha);
+    }
 
-	@PostMapping
-	@ResponseStatus(code = HttpStatus.CREATED)
-	public CozinhaModel adicionar(@RequestBody @Valid CozinhaInput cozinhaInput) {
-		try {
-			Cozinha cozinha = cozinhaModelDisAssembler.toDomainObject(cozinhaInput);
-			return cozinhaModelAssembler.toModel(cadastroCozinha.salvar(cozinha));
-		} catch (EntidadeNaoEncontradaException e) {
-			throw new NegocioException(e.getMessage());
-		}
-	}
+    @PostMapping
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public CozinhaModel adicionar(@RequestBody @Valid CozinhaInput cozinhaInput) {
+        try {
+            Cozinha cozinha = cozinhaModelDisAssembler.toDomainObject(cozinhaInput);
+            return cozinhaModelAssembler.toModel(cadastroCozinha.salvar(cozinha));
+        } catch (EntidadeNaoEncontradaException e) {
+            throw new NegocioException(e.getMessage());
+        }
+    }
 
-	@PutMapping("/{cozinhaId}")
-	public CozinhaModel atualizar(@PathVariable Long cozinhaId, @RequestBody @Valid CozinhaInput cozinhaInput) {
+    @PutMapping("/{cozinhaId}")
+    public CozinhaModel atualizar(@PathVariable Long cozinhaId, @RequestBody @Valid CozinhaInput cozinhaInput) {
 
-		Cozinha cozinhaAtual = cadastroCozinha.buscarOuFalhar(cozinhaId);
+        Cozinha cozinhaAtual = cadastroCozinha.buscarOuFalhar(cozinhaId);
 
-		cozinhaModelDisAssembler.copyToDomainObject(cozinhaInput,
-				cozinhaAtual);
+        cozinhaModelDisAssembler.copyToDomainObject(cozinhaInput,
+                cozinhaAtual);
 
-		try {
-			return cozinhaModelAssembler.toModel(cadastroCozinha.salvar(cozinhaAtual));
-		} catch (EntidadeNaoEncontradaException e) {
-			throw new NegocioException(e.getMessage());
-		}
-	}
+        try {
+            return cozinhaModelAssembler.toModel(cadastroCozinha.salvar(cozinhaAtual));
+        } catch (EntidadeNaoEncontradaException e) {
+            throw new NegocioException(e.getMessage());
+        }
+    }
 
-	@DeleteMapping("/{cozinhaId}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void remover(@PathVariable Long cozinhaId) {
-		cadastroCozinha.excluir(cozinhaId);
-	}
+    @DeleteMapping("/{cozinhaId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void remover(@PathVariable Long cozinhaId) {
+        cadastroCozinha.excluir(cozinhaId);
+    }
 
 }

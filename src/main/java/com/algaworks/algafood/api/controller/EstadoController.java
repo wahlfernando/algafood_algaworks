@@ -2,7 +2,7 @@ package com.algaworks.algafood.api.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,59 +30,59 @@ import com.algaworks.algafood.domain.service.CadastroEstadoService;
 @RequestMapping(value = "/estados")
 public class EstadoController {
 
-	@Autowired
-	private CadastroEstadoService cadastroEstado;
+    @Autowired
+    private CadastroEstadoService cadastroEstado;
 
-	@Autowired
-	private EstadoModelAssembler estadoModelAssembler;
+    @Autowired
+    private EstadoModelAssembler estadoModelAssembler;
 
-	@Autowired
-	private EstadoModelDisAssembler estadoModelDisAssembler;
+    @Autowired
+    private EstadoModelDisAssembler estadoModelDisAssembler;
 
-	@Autowired
-	private EstadoRepository estadoRepository;
+    @Autowired
+    private EstadoRepository estadoRepository;
 
-	@GetMapping()
-	public List<EstadoModel> listar() {
-		return estadoModelAssembler.toCollectionModel(estadoRepository.findAll());
-	}
+    @GetMapping()
+    public List<EstadoModel> listar() {
+        return estadoModelAssembler.toCollectionModel(estadoRepository.findAll());
+    }
 
-	@GetMapping("/{estadoId}")
-	public EstadoModel buscar(@PathVariable Long estadoId) {
-		Estado estado = cadastroEstado.buscarOuFalhar(estadoId);
-		return estadoModelAssembler.toModel(estado);
-	}
+    @GetMapping("/{estadoId}")
+    public EstadoModel buscar(@PathVariable Long estadoId) {
+        Estado estado = cadastroEstado.buscarOuFalhar(estadoId);
+        return estadoModelAssembler.toModel(estado);
+    }
 
-	@PostMapping
-	@ResponseStatus(code = HttpStatus.CREATED)
-	public EstadoModel adicionar(@RequestBody @Valid EstadoInput estadoInput) {
-		try {
-			Estado estado = estadoModelDisAssembler.toDomainObject(estadoInput);
-			return estadoModelAssembler.toModel(cadastroEstado.salvar(estado));
-		} catch (EntidadeNaoEncontradaException e) {
-			throw new NegocioException(e.getMessage());
-		}
-	}
+    @PostMapping
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public EstadoModel adicionar(@RequestBody @Valid EstadoInput estadoInput) {
+        try {
+            Estado estado = estadoModelDisAssembler.toDomainObject(estadoInput);
+            return estadoModelAssembler.toModel(cadastroEstado.salvar(estado));
+        } catch (EntidadeNaoEncontradaException e) {
+            throw new NegocioException(e.getMessage());
+        }
+    }
 
-	@PutMapping("/{estadoId}")
-	public EstadoModel atualizar(@PathVariable Long estadoId, @RequestBody @Valid EstadoInput estadoInput) {
+    @PutMapping("/{estadoId}")
+    public EstadoModel atualizar(@PathVariable Long estadoId, @RequestBody @Valid EstadoInput estadoInput) {
 
-		Estado estadoAtual = cadastroEstado.buscarOuFalhar(estadoId);
+        Estado estadoAtual = cadastroEstado.buscarOuFalhar(estadoId);
 
-		estadoModelDisAssembler.copyToDomainObject(estadoInput,
-				estadoAtual);
+        estadoModelDisAssembler.copyToDomainObject(estadoInput,
+                estadoAtual);
 
-		try {
-			return estadoModelAssembler.toModel(cadastroEstado.salvar(estadoAtual));
-		} catch (EntidadeNaoEncontradaException e) {
-			throw new NegocioException(e.getMessage());
-		}
+        try {
+            return estadoModelAssembler.toModel(cadastroEstado.salvar(estadoAtual));
+        } catch (EntidadeNaoEncontradaException e) {
+            throw new NegocioException(e.getMessage());
+        }
 
-	}
+    }
 
-	@DeleteMapping("/{estadoId}")
-	public void remover(@PathVariable Long estadoId) {
-		cadastroEstado.excluir(estadoId);
-	}
+    @DeleteMapping("/{estadoId}")
+    public void remover(@PathVariable Long estadoId) {
+        cadastroEstado.excluir(estadoId);
+    }
 
 }
