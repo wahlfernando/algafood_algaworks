@@ -59,25 +59,25 @@ O **Algafood** é uma aplicação completa de delivery de comida, utilizada como
 - Configuração de Resource Server e Authorization Server.
 - Conceitos Cloud-Native e Deploy em produção.
 
-### Evolução do aprendizado
+## 📈 Evolução do aprendizado
 Este repositório é um reflexo da minha jornada no curso. A evolução acontece de forma incremental:
 Começamos com o básico de Spring e JPA.
 Refatoramos para padrões de projeto como DTOs e Service Layer.
 Implementamos segurança robusta e documentação automática.
 Cada commit representa um novo conceito consolidado, desde a simples criação de um endpoint até a implementação de fluxos complexos de OAuth2.
 
-### Fonte de estudo
+## 📖 Fonte de estudo
 O conteúdo programático seguido neste projeto pertence à AlgaWorks, especificamente ao treinamento Especialista Spring REST.
 Ementa completa: Acesse aqui o PDF oficial.
 Plataforma: AlgaWorks.
 
-### Observações
+## 📌 Observações
 Este projeto tem finalidade estritamente educacional.
 O código pode sofrer refatorações constantes à medida que novos módulos do curso são concluídos.
 Algumas chaves de configuração ou serviços externos (como AWS S3 ou SMTP) podem exigir variáveis de ambiente locais para funcionamento pleno.
 
-### Autor
-Fernando Wahl
+## 👨‍💻 Autor
+### Fernando Wahl
 
 GitHub: @wahlfernando
 LinkedIn: https://www.linkedin.com/in/fernando-alexandre-wahl-4246b053/
