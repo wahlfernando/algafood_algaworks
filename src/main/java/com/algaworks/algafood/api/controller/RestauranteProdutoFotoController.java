@@ -17,6 +17,7 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
@@ -30,7 +31,7 @@ public class RestauranteProdutoFotoController {
   private CadastroProdutoService cadastroProduto;
 
   @Autowired
-  private CatalogoFotoProdutoService catalogoFotoPRoduto;
+  private CatalogoFotoProdutoService catalogoFotoProduto;
 
   @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public FotoProdutoModel atualizarFoto(
@@ -47,10 +48,17 @@ public class RestauranteProdutoFotoController {
     foto.setTamanho(fotoProdutoInput.getArquivo().getSize());
     foto.setNomeProduto(fotoProdutoInput.getArquivo().getOriginalFilename());
 
-    FotoProduto fotoSalva = catalogoFotoPRoduto.salvar(foto, fotoProdutoInput.getArquivo().getInputStream());
+    FotoProduto fotoSalva = catalogoFotoProduto.salvar(foto, fotoProdutoInput.getArquivo().getInputStream());
 
     return fotoProdutoModelAssembler.toModel(fotoSalva);
 
+  }
+
+  @GetMapping()
+  public FotoProdutoModel buscar(@PathVariable Long restauranteId, @PathVariable Long produtoId) {
+    FotoProduto fotoProduto = catalogoFotoProduto.buscarOuFalhar(restauranteId, produtoId);
+
+    return fotoProdutoModelAssembler.toModel(fotoProduto);
   }
 
 }
