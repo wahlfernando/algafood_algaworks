@@ -12,6 +12,9 @@ import com.algaworks.algafood.domain.service.CadastroProdutoService;
 import com.algaworks.algafood.domain.service.CatalogoFotoProdutoService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PutMapping;
+
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,7 +36,7 @@ public class RestauranteProdutoFotoController {
   public FotoProdutoModel atualizarFoto(
       @PathVariable Long restauranteId,
       @PathVariable Long produtoId,
-      @Valid FotoProdutoInput fotoProdutoInput) {
+      @Valid FotoProdutoInput fotoProdutoInput) throws IOException {
 
     Produto produto = cadastroProduto.buscarOuFalhar(restauranteId, produtoId);
 
@@ -44,7 +47,7 @@ public class RestauranteProdutoFotoController {
     foto.setTamanho(fotoProdutoInput.getArquivo().getSize());
     foto.setNomeProduto(fotoProdutoInput.getArquivo().getOriginalFilename());
 
-    FotoProduto fotoSalva = catalogoFotoPRoduto.salvar(foto);
+    FotoProduto fotoSalva = catalogoFotoPRoduto.salvar(foto, fotoProdutoInput.getArquivo().getInputStream());
 
     return fotoProdutoModelAssembler.toModel(fotoSalva);
 
