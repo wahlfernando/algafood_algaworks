@@ -381,8 +381,8 @@ values (1, 1),
 insert into usuario (id, nome, email, senha, data_cadastro)
 values (
                 1,
-                'João da Silva',
-                'joao.ger@algafood.com',
+                'Fernando',
+                'wahlfernando@yahoo.com.br',
                 '123',
                 utc_timestamp
         ),
